@@ -1,0 +1,2 @@
+- pipeline.id: logstash-mikrot
+  path.config: "pipeline/logstash-mikrot.conf"

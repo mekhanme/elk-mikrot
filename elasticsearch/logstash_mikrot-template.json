@@ -1,0 +1,69 @@
+{
+  "index_patterns": [
+    "logstash-mikrot*"
+  ],
+  "settings": {
+    "number_of_shards": 1
+  },
+  "mappings": {
+    "_source": {
+      "enabled": true
+    },
+    "dynamic_templates": [
+      {
+        "integers": {
+          "match_mapping_type": "long",
+          "mapping": {
+            "type": "long"
+          }
+        }
+      },
+      {
+        "strings": {
+          "match_mapping_type": "string",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      }
+    ],
+    "properties": {
+      "geoip.location": {
+        "type": "geo_point"
+      },
+      "geoip.dst.location": {
+        "type": "geo_point"
+      },
+      "src_ip": {
+        "type": "ip"
+      },
+      "dst_ip": {
+        "type": "ip"
+      },
+      "geoip.src.ip": {
+        "type": "ip"
+      },
+      "geoip.dst.ip": {
+        "type": "ip"
+      },
+      "src_port": {
+        "type": "integer"
+      },
+      "dst_port": {
+        "type": "integer"
+      },
+      "message": {
+        "type": "text"
+      },
+      "length": {
+        "type": "long"
+      },
+      "geoip.src.asn": {
+        "type": "integer"
+      },
+      "geoip.dst.asn": {
+        "type": "integer"
+      }
+    }
+  }
+}

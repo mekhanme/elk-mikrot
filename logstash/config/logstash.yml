@@ -1,0 +1,7 @@
+xpack.monitoring.enabled: false
+config.debug: false
+config.reload.automatic: true
+config.reload.interval: 20
+log.level: info
+log.format: json
+path.logs: /usr/share/logstash/logs

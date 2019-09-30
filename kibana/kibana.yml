@@ -1,0 +1,10 @@
+elasticsearch.hosts: "http://elasticsearch:9200"
+server.host: "0.0.0.0"
+server.port: 5601
+elasticsearch.requestTimeout: 60000
+elasticsearch.shardTimeout: 60000
+elasticsearch.logQueries: true
+logging.timezone: "Europe/Moscow"
+logging.json: false
+logging.verbose: true
+xpack.security.enabled: false

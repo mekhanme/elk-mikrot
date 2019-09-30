@@ -1,0 +1,94 @@
+# Вывести index
+GET /logstash-mikrot*
+
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
+
+# Вывести templates
+GET /_cat/templates
+GET /_template/logstash-mikrot*
+
+# Записать template
+PUT /_template/logstash-mikrot
+{
+  "index_patterns": [
+    "logstash-mikrot*"
+  ],
+  "settings": {
+    "number_of_shards": 1
+  },
+  "mappings": {
+    "_source": {
+      "enabled": true
+    },
+    "dynamic_templates": [
+      {
+        "integers": {
+          "match_mapping_type": "long",
+          "mapping": {
+            "type": "long"
+          }
+        }
+      },
+      {
+        "strings": {
+          "match_mapping_type": "string",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      }
+    ],
+    "properties": {
+      "geoip.location": {
+        "type": "geo_point"
+      },
+      "geoip.dst.location": {
+        "type": "geo_point"
+      },
+      "src_ip": {
+        "type": "ip"
+      },
+      "dst_ip": {
+        "type": "ip"
+      },
+      "geoip.src.ip": {
+        "type": "ip"
+      },
+      "geoip.dst.ip": {
+        "type": "ip"
+      },
+      "src_port": {
+        "type": "integer"
+      },
+      "dst_port": {
+        "type": "integer"
+      },
+      "message": {
+        "type": "text"
+      },
+      "length": {
+        "type": "long"
+      },
+      "geoip.src.asn": {
+        "type": "integer"
+      },
+      "geoip.dst.asn": {
+        "type": "integer"
+      }
+    }
+  }
+}
+
+# Вывести index mapping
+GET /logstash-mikrot-2019.09.30/_mapping
+
+# Удалить index
+DELETE logstash-mikrot-2019.09.30
+
+# Добавить alias на index
+POST /_aliases
+{
+    "actions" : [
+        { "add" : { "index" : "logstash-mikrot-2019.09.30", "alias" : "logstash-mikrot" } }
+    ]
+}
