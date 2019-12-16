@@ -3,30 +3,30 @@ version: '3.7'
 services:
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.3.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
     container_name: elasticsearch
     hostname: elasticsearch
     ports:
       - "9200:9200"
       - "9300:9300"
     environment:
-      - "TZ=Europe/Moscow"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      TZ: "Europe/Moscow"
+      ES_JAVA_OPTS: "-Xms1024m -Xms1024m"
     volumes:
       - "./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
       - "esdata:/usr/share/elasticsearch/data"
     deploy:
       resources:
         limits:
-          cpus: "1"
-          memory: "1g"
+          cpus: "2"
+          memory: "2g"
       mode: replicated
       replicas: 1
     restart:
       unless-stopped
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:7.3.1
+    image: docker.elastic.co/logstash/logstash:7.5.0
     container_name: logstash
     hostname: logstash
     # user: root
@@ -39,8 +39,8 @@ services:
       - "5145:5145/udp"
     command: "bin/logstash --config.reload.automatic"
     environment:
-      - "TZ=Europe/Moscow"
-      - "LS_JAVA_OPTS=-Xmx512m -Xms512m"
+      TZ: "Europe/Moscow"
+      LS_JAVA_OPTS: "-Xmx512m -Xms512m"
     deploy:
       resources:
         limits:
@@ -52,7 +52,7 @@ services:
       unless-stopped
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.3.1
+    image: docker.elastic.co/kibana/kibana:7.5.0
     container_name: kibana
     hostname: kibana
     ports:
@@ -60,7 +60,7 @@ services:
     volumes:
       - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
     environment:
-      - "TZ=Europe/Moscow"
+      TZ: "Europe/Moscow"
     deploy:
       resources:
         limits:
